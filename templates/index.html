@@ -1,10 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Prediction</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        section {
+            border: 3px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        label {
+            background-color: #f8f9fa;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        h4 {
+            background-color: grey;
+            text-decoration: underline;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body>
-$END$
+    <div class="container mt-5">
+        <h2 class="text-center">Enter Data for Prediction</h2>
+        <form id="predictionForm" action="/predict" method="post">
+            <section class="mb-4">
+                <h4>Personal Information</h4>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="text" class="form-control" id="age" name="age">
+                </div>
+                <div class="form-group">
+                    <label for="job">Job:</label>
+                    <select class="form-control" id="job" name="job">
+                        <option value="1">admin.</option>
+                        <option value="2">blue-collar</option>
+                        <option value="3">entrepreneur</option>
+                        <option value="4">housemaid</option>
+                        <option value="5">management</option>
+                        <option value="6">retired</option>
+                        <option value="7">self-employed</option>
+                        <option value="8">services</option>
+                        <option value="9">student</option>
+                        <option value="10">technician</option>
+                        <option value="11">unemployed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="marital">Marital:</label>
+                    <select class="form-control" id="marital" name="marital">
+                        <option value="1">divorced</option>
+                        <option value="2">married</option>
+                        <option value="3">single</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="education">Education:</label>
+                    <select class="form-control" id="education" name="education">
+                        <option value="1">basic.4y</option>
+                        <option value="2">basic.6y</option>
+                        <option value="3">basic.9y</option>
+                        <option value="4">high.school</option>
+                        <option value="5">illiterate</option>
+                        <option value="6">professional.course</option>
+                        <option value="7">university.degree</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="mb-4">
+                <h4>Financial Information</h4>
+                <div class="form-group">
+                    <label for="default">Default:</label>
+                    <select class="form-control" id="default" name="default">
+                        <option value="0">no</option>
+                        <option value="1">yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="housing">Housing:</label>
+                    <select class="form-control" id="housing" name="housing">
+                        <option value="0">no</option>
+                        <option value="1">yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="loan">Loan:</label>
+                    <select class="form-control" id="loan" name="loan">
+                        <option value="0">no</option>
+                        <option value="1">yes</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="mb-4">
+                <h4>Contact Information</h4>
+                <div class="form-group">
+                    <label for="contact">Contact:</label>
+                    <select class="form-control" id="contact" name="contact">
+                        <option value="1">cellular</option>
+                        <option value="2">telephone</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="month">Month:</label>
+                    <select class="form-control" id="month" name="month">
+                        <option value="1">jan</option>
+                        <option value="2">feb</option>
+                        <option value="3">mar</option>
+                        <option value="4">apr</option>
+                        <option value="5">may</option>
+                        <option value="6">jun</option>
+                        <option value="7">jul</option>
+                        <option value="8">aug</option>
+                        <option value="9">sep</option>
+                        <option value="10">oct</option>
+                        <option value="11">nov</option>
+                        <option value="12">dec</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="day_of_week">Day of Week:</label>
+                    <select class="form-control" id="day_of_week" name="day_of_week">
+                        <option value="1">mon</option>
+                        <option value="2">tue</option>
+                        <option value="3">wed</option>
+                        <option value="4">thu</option>
+                        <option value="5">fri</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="mb-4">
+                <h4>Campaign Information</h4>
+                <div class="form-group">
+                    <label for="duration">Duration:</label>
+                    <input type="number" class="form-control" id="duration" name="duration" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="campaign">Campaign:</label>
+                    <input type="number" class="form-control" id="campaign" name="campaign" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="pdays">Pdays:</label>
+                    <input type="number" class="form-control" id="pdays" name="pdays" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="previous">Previous:</label>
+                    <input type="number" class="form-control" id="previous" name="previous" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="poutcome">Poutcome:</label>
+                    <select class="form-control" id="poutcome" name="poutcome">
+                        <option value="1">failure</option>
+                        <option value="2">nonexistent</option>
+                        <option value="3">success</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="mb-4">
+                <h4>Economic Indicators</h4>
+                <div class="form-group">
+                    <label for="emp_var_rate">Employment Variation Rate:</label>
+                    <input type="number" class="form-control" id="emp_var_rate" name="emp.var.rate" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="cons_price_idx">Consumer Price Index:</label>
+                    <input type="number" class="form-control" id="cons_price_idx" name="cons.price.idx" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="cons_conf_idx">Consumer Confidence Index:</label>
+                    <input type="number" class="form-control" id="cons_conf_idx" name="cons.conf.idx" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="euribor3m">Euribor 3 Month Rate:</label>
+                    <input type="number" class="form-control" id="euribor3m" name="euribor3m" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="nr_employed">Number of Employees:</label>
+                    <input type="number" class="form-control" id="nr_employed" name="nr.employed" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="cons_idx">Consumer Index:</label>
+                    <input type="number" class="form-control" id="cons_idx" name="cons.idx" step="any">
+                </div>
+                <div class="form-group">
+                    <label for="period">Period:</label>
+                    <select class="form-control" id="period" name="period">
+                        <option value="1">jan_mon</option>
+                        <option value="2">jan_tue</option>
+                        <option value="3">jan_wed</option>
+                        <option value="4">jan_thu</option>
+                        <option value="5">jan_fri</option>
+                        <option value="6">feb_mon</option>
+                        <option value="7">feb_tue</option>
+                        <option value="8">feb_wed</option>
+                        <option value="9">feb_thu</option>
+                        <option value="10">feb_fri</option>
+                        <option value="11">mar_mon</option>
+                        <option value="12">mar_tue</option>
+                        <option value="13">mar_wed</option>
+                        <option value="14">mar_thu</option>
+                        <option value="15">mar_fri</option>
+                        <option value="16">apr_mon</option>
+                        <option value="17">apr_tue</option>
+                        <option value="18">apr_wed</option>
+                        <option value="19">apr_thu</option>
+                        <option value="20">apr_fri</option>
+                        <option value="21">may_mon</option>
+                        <option value="22">may_tue</option>
+                        <option value="23">may_wed</option>
+                        <option value="24">may_thu</option>
+                        <option value="25">may_fri</option>
+                        <option value="26">jun_mon</option>
+                        <option value="27">jun_tue</option>
+                        <option value="28">jun_wed</option>
+                        <option value="29">jun_thu</option>
+                        <option value="30">jun_fri</option>
+                        <option value="31">jul_mon</option>
+                        <option value="32">jul_tue</option>
+                        <option value="33">jul_wed</option>
+                        <option value="34">jul_thu</option>
+                        <option value="35">jul_fri</option>
+                        <option value="36">aug_mon</option>
+                        <option value="37">aug_tue</option>
+                        <option value="38">aug_wed</option>
+                        <option value="39">aug_thu</option>
+                        <option value="40">aug_fri</option>
+                        <option value="41">sep_mon</option>
+                        <option value="42">sep_tue</option>
+                        <option value="43">sep_wed</option>
+                        <option value="44">sep_thu</option>
+                        <option value="45">sep_fri</option>
+                        <option value="46">oct_mon</option>
+                        <option value="47">oct_tue</option>
+                        <option value="48">oct_wed</option>
+                        <option value="49">oct_thu</option>
+                        <option value="50">oct_fri</option>
+                        <option value="51">nov_mon</option>
+                        <option value="52">nov_tue</option>
+                        <option value="53">nov_wed</option>
+                        <option value="54">nov_thu</option>
+                        <option value="55">nov_fri</option>
+                        <option value="56">dec_mon</option>
+                        <option value="57">dec_tue</option>
+                        <option value="58">dec_wed</option>
+                        <option value="59">dec_thu</option>
+                        <option value="60">dec_fri</option>
+                    </select>
+                </div>
+            </section>
+
+            <button type="submit" class="btn btn-primary btn-block">Predict</button>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultModalLabel">Prediction Result</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="predictionResult">{{ prediction_text }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <script>
+    $(document).ready(function() {
+        $('#predictionForm').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/predict',
+                data: $(this).serialize(),
+                success: function(response) {
+                    console.log(response);
+                    $('#predictionResult').text(response.prediction_text);
+                    $('#resultModal').modal('show');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
